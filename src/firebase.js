@@ -13,7 +13,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 const COL = "reports";
 
 /* 리포트 저장 (id 없으면 새로 만듦) */

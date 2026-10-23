@@ -16,7 +16,7 @@ function SecTitle({ num, children }) {
   return <h2 className="sec-title">{num && <span className="sec-num">{num}</span>}{children}</h2>;
 }
 
-function ItemColumn({ label, rows, showTeacher, rate }) {
+function ItemColumn({ label, rows, showTeacher, rate, prefix = "" }) {
   return (
     <table className="qtable">
       <thead>
@@ -37,7 +37,7 @@ function ItemColumn({ label, rows, showTeacher, rate }) {
             {showTeacher && <td className="t-teacher">{r.teacher}</td>}
             <td className="t-type">{r.type}</td>
             <td className="t-pts">{r.pts}</td>
-            {rate && <td className="t-rate">{rate[r.no] != null ? rate[r.no] + "%" : ""}</td>}
+            {rate && (() => { const v = rate[prefix + String(r.no).replace(/^서/, "")]; return <td className={"t-rate" + (v >= 50 ? " hot" : "")}>{v != null ? v + "%" : ""}</td>; })()}
           </tr>
         ))}
       </tbody>
@@ -48,7 +48,7 @@ function ItemColumn({ label, rows, showTeacher, rate }) {
 function QTableSection({ d }) {
   const obj = d.objective || [], subj = d.subjective || [];
   const showTeacher = obj.concat(subj).some((r) => r.teacher && String(r.teacher).trim());
-  const rate = d.errorRate || null;
+  const rate = d.errorRate && Object.keys(d.errorRate).length ? d.errorRate : null;
   const total = obj.length + subj.length;
   const legend = d.legend || [];
   let left, right;
@@ -58,12 +58,12 @@ function QTableSection({ d }) {
     right = (
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {obj.length > cut && <ItemColumn label="객관식" rows={obj.slice(cut)} showTeacher={showTeacher} rate={rate} />}
-        <ItemColumn label="서술형" rows={subj} showTeacher={showTeacher} rate={rate} />
+        <ItemColumn label="서술형" rows={subj} showTeacher={showTeacher} rate={rate} prefix="서" />
       </div>
     );
   } else {
     left = <ItemColumn label="객관식" rows={obj} showTeacher={showTeacher} rate={rate} />;
-    right = <ItemColumn label="서술형" rows={subj} showTeacher={showTeacher} rate={rate} />;
+    right = <ItemColumn label="서술형" rows={subj} showTeacher={showTeacher} rate={rate} prefix="서" />;
   }
   return (
     <div className="keep">
@@ -94,6 +94,11 @@ function buildBlocks(d) {
           {s.range && <div className="summary-row"><span className="summary-key">범위</span><span className="summary-val">{s.range}</span></div>}
           {s.keyGrammar && <div className="summary-row"><span className="summary-key">핵심 문법</span><span className="summary-val">{s.keyGrammar}</span></div>}
           {s.difficulty && <div className="summary-row"><span className="summary-key">난이도</span><span className="summary-val"><span className="diff-pill">{s.difficulty}</span></span></div>}
+          {d.stats && d.stats.n > 0 && (
+            <div className="summary-row"><span className="summary-key">원내 성적</span><span className="summary-val stat-chip">
+              응시 {d.stats.n}명 · 평균 {d.stats.avg}점{d.stats.objAvg != null && d.stats.subjAvg != null ? ` (객관식 ${d.stats.objAvg} · 서술형 ${d.stats.subjAvg})` : ""}{d.stats.nItems ? ` · 오답률은 문항 체크 ${d.stats.nItems}명 기준` : ""}{d.stats.updatedAt ? ` · ${d.stats.updatedAt} 갱신` : ""}
+            </span></div>
+          )}
         </div>
       </>
     )

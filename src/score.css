@@ -1,0 +1,82 @@
+/* ───────── 점수기록 탭 ───────── */
+.sc .panel { margin-top: 12px; }
+.sc-subtabs { display: flex; gap: 4px; margin-left: 10px; flex-wrap: wrap; }
+.sc-subtab { font: inherit; font-size: 13px; font-weight: 700; padding: 5px 12px; border: 1px solid var(--line-mid); background: #fff; border-radius: 5px; cursor: pointer; color: var(--ink-soft); }
+.sc-subtab.on { border-color: var(--ink); color: var(--ink); box-shadow: inset 0 -2px 0 var(--ink); }
+
+.sc-select, .sc-in, .sc-search { font: inherit; font-size: 13.5px; padding: 6px 8px; border: 1px solid var(--line-mid); border-radius: 5px; background: #fff; color: var(--ink); }
+.sc-select { min-width: 260px; max-width: 100%; }
+.sc-in { width: 150px; }
+.sc-in-s { width: 74px; }
+.sc-search { width: 160px; }
+.sc-bulk { flex: 1; min-width: 240px; height: 58px; font: 13px/1.5 inherit; font-family: inherit; padding: 6px 8px; border: 1px solid var(--line-mid); border-radius: 5px; resize: vertical; }
+.sc-h3 { font-size: 15px; font-weight: 700; }
+.sc-dim { color: var(--ink-faint); font-size: 12.5px; }
+.sc-note { color: var(--ink-soft); font-size: 13px; }
+.sc-check { font-size: 13px; color: var(--ink-soft); display: flex; align-items: center; gap: 5px; cursor: pointer; }
+.sc-label { font-size: 13px; font-weight: 700; margin: 12px 0 6px; }
+
+.sc-table { margin-top: 6px; }
+.sc-table th, .sc-table td { border: 1px solid var(--line); }
+.sc-table thead th { border-top: 2px solid var(--ink); border-bottom: 1.5px solid var(--ink); background: #fff; }
+.sc-table .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sc-editing td { background: var(--blue-soft); }
+.sc-editor-row > td { padding: 0 !important; background: #fafbfc; }
+.sc-editor { padding: 12px 14px; }
+.sc-editor-foot { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line-mid); }
+.sc-sum { font-size: 14px; }
+.sc-total { font-size: 17px; color: var(--blue); }
+
+.sc-seg { display: inline-flex; border: 1px solid var(--line-mid); border-radius: 5px; overflow: hidden; }
+.sc-seg-btn { font: inherit; font-size: 12.5px; font-weight: 700; padding: 5px 11px; background: #fff; border: 0; border-right: 1px solid var(--line-mid); cursor: pointer; color: var(--ink-soft); }
+.sc-seg-btn:last-child { border-right: 0; }
+.sc-seg-btn.on { background: var(--ink); color: #fff; }
+.sc-seg-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.sc-qgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 6px; }
+.sc-q { font: inherit; display: flex; flex-direction: column; align-items: center; padding: 6px 0 4px; border: 1px solid var(--line-mid); border-radius: 5px; background: #fff; cursor: pointer; }
+.sc-q-no { font-weight: 700; font-size: 14px; }
+.sc-q-pts { font-size: 11px; color: var(--ink-faint); }
+.sc-q.wrong { background: var(--red-soft); border-color: var(--red); }
+.sc-q.wrong .sc-q-no { color: var(--red); text-decoration: line-through; }
+
+.sc-subj { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 6px; }
+.sc-subj-row { display: flex; align-items: center; gap: 6px; padding: 5px 8px; border: 1px solid var(--line-mid); border-radius: 5px; background: #fff; }
+.sc-subj-row .sc-q-no { min-width: 34px; }
+.sc-subj-row input { width: 64px; font: inherit; font-size: 13.5px; padding: 4px 6px; border: 1px solid var(--line-mid); border-radius: 4px; text-align: right; }
+.sc-subj-row.wrong { background: var(--red-soft); border-color: var(--red); }
+.sc-subj-row.wrong .sc-q-no { color: var(--red); }
+.sc-field { display: flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 700; }
+.sc-field input { width: 90px; font: inherit; font-weight: 400; padding: 6px 8px; border: 1px solid var(--line-mid); border-radius: 5px; text-align: right; }
+
+.sc-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); border: 1px solid var(--line); border-top: 2px solid var(--ink); margin: 6px 0 12px; }
+.sc-stat { display: flex; flex-direction: column; padding: 8px 12px; border-right: 1px solid var(--line); }
+.sc-stat:last-child { border-right: 0; }
+.sc-stat-k { font-size: 12px; color: var(--ink-faint); }
+.sc-stat-v { font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.sc-bar { position: relative; height: 18px; min-width: 140px; background: #f1f2f4; border-radius: 3px; overflow: hidden; }
+.sc-bar-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--blue); opacity: 0.55; }
+.sc-bar-fill.hot { background: var(--red); opacity: 0.75; }
+.sc-bar span { position: relative; padding-left: 6px; font-size: 12.5px; font-weight: 700; line-height: 18px; font-variant-numeric: tabular-nums; }
+
+.sc-up { color: var(--blue); font-weight: 700; }
+.sc-down { color: var(--red); font-weight: 700; }
+
+.sc-chart { border: 1px solid var(--line); padding: 8px 8px 4px; margin: 4px 0 10px; overflow-x: auto; }
+.sc-chart svg { width: 100%; min-width: 480px; height: auto; display: block; }
+.sc-grid { stroke: var(--line); stroke-width: 1; }
+.sc-axis { font-size: 11px; fill: var(--ink-faint); }
+.sc-axis-sub { font-size: 10px; }
+.sc-val { font-size: 11.5px; font-weight: 700; fill: var(--blue); }
+.sc-line-me { stroke: var(--blue); stroke-width: 2.4; }
+.sc-line-avg { stroke: var(--ink-faint); stroke-width: 1.6; stroke-dasharray: 5 4; }
+.sc-dot-me { fill: var(--blue); }
+.sc-dot-avg { fill: var(--ink-faint); }
+.sc-legend { display: flex; gap: 14px; font-size: 12px; padding: 4px 6px; }
+.sc-lg-me::before, .sc-lg-avg::before { content: ""; display: inline-block; width: 16px; height: 0; vertical-align: middle; margin-right: 5px; }
+.sc-lg-me::before { border-top: 2.4px solid var(--blue); }
+.sc-lg-avg::before { border-top: 1.6px dashed var(--ink-faint); }
+
+/* 리포트 1면 원내 성적 줄 */
+.summary-val .stat-chip { font-variant-numeric: tabular-nums; }
