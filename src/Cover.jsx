@@ -73,7 +73,7 @@ function QTableSection({ d }) {
           {legend.map((l) => <span key={l.group} className={"lg lg-" + l.group}>{l.label}</span>)}
         </div>
       )}
-      <div className="two-col">{left}{right}</div>
+      <div className={"two-col" + (total >= 24 ? " dense" : "")}>{left}{right}</div>
     </div>
   );
 }

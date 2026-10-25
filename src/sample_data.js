@@ -133,5 +133,42 @@ export default {
       answer: "②",
       sol: { ans: "정답 ② the cause of stereotypes", cm: "'언급되지 않은 것'이므로 ✕는 '본문에 있어서 배제'. 넷은 형광 문장에 1:1 근거, 남는 하나가 ②." }
     }
+    ,
+    {
+      no: "10", source: "교과서 3과", type: "보기 판단(개수)", transform: "변형률 2% (단어 변형)", stars: 4, pts: "3.3점",
+      stem: "10. 다음 글에 대한 설명으로 [u:옳은] 것을 <보기>에서 있는 대로 고른 것의 개수는?",
+      passage: "[y:The efforts of the Monuments Men did not end with the war|a]. For several years, they continued the work of recovering cultural treasures. [skip] In the end, the Monuments Men [y:returned more than five million works of art|b] to their places of origin. [skip] Without this determined group, the search for stolen works of art [b:might never have begun|d]. Thanks to their efforts, [y:many incredible cultural sites and works of art have survived|c].",
+      bogi: [
+        { t: "(a) The Monuments Men [x:stopped all the activities] they had undertaken as soon as the war ended.", v: "X", why: "[q:did not end with the war] — 전쟁 후에도 계속" },
+        { t: "(b) Through continuous efforts, the Monuments Men succeeded in recovering the stolen works of art but [x:failed to return] any of them.", v: "X", why: "[q:returned more than five million works of art] — 돌려줌" },
+        { t: "(c) Despite the Monuments Men's hard work, [x:all] the significant cultural sites and works of art have been lost.", v: "X", why: "[q:many … have survived] — 살아남음" },
+        { t: "(d) (a) is grammatically incorrect whereas (b) is correct.", v: "X", why: "둘 다 문법상 정상 — 틀린 건 내용" },
+        { t: "(e) (c) is grammatically inappropriate.", v: "O", why: "worth 뒤 동명사 remembering이어야 하므로 (c)는 틀린 문장 — 옳은 진술" }
+      ],
+      stemAfter: true,
+      choices: [
+        { n: "①", text: "없음", why: "(e)는 옳음" },
+        { n: "②", text: "1개", why: "(e)만 옳음" },
+        { n: "③", text: "2개", why: "(d)를 옳다고 본 경우 — [qb:might never have begun]도 begun이어야 해서 (d) 전제가 거짓", focus: true },
+        { n: "④", text: "3개", why: "내용 보기 (a)~(c) 중 하나라도 맞다고 본 경우 — 셋 다 본문과 반대" },
+        { n: "⑤", text: "4개", why: "성립 불가" }
+      ],
+      answer: "②",
+      sol: { ans: "정답 ② 1개 (e)", cm: "개수 유형은 보기마다 ○✕ 판정이 곧 풀이. (d)는 앞 절은 참·뒤 절은 거짓인 반쪽 진술 — begun을 놓치면 2개로 오답." }
+    },
+    {
+      no: "서4", source: "출처 미확인", type: "조건 영작", transform: "원문 미보유", stars: 3, pts: "6점",
+      stem: "[서·논술형 4] 다음 우리말을 주어진 <조건>에 맞게 영작하시오.",
+      cond: ["주어진 영어 단어를 반드시 모두 포함할 것", "우리말에 맞게 단어를 추가할 것", "필요시 어법에 맞게 변형할 것"],
+      subs: [
+        { label: "4-1.", stem: "그녀는 나에게 새 물건을 사기 전에 고객 리뷰를 확인하라고 조언하였다. (advise / check / customer review)", pts: "2점",
+          answerLine: "She [y:advised] me to [y:check] [y:customer reviews] before buying a new product.", cm: "advise + 목적어 + **to부정사**. customer review(단수) 인정 여부는 학교 확인 요망." },
+        { label: "4-2.", stem: "나는 나의 자전거를 지난주에 수리하였다. (get / fix)", pts: "2점",
+          answerLine: "I [y:got] my bike [y:fixed] last week.", cm: "직접 고친 게 아니므로 사역 **get + 목적어 + p.p.**" },
+        { label: "4-3.", stem: "Jay는 조금 더 조심했어야 했다. (more careful)", pts: "2점",
+          answerLine: "Jay should have been [y:more careful].", cm: "과거에 대한 후회 **should have p.p.** — been 빠뜨리기 쉬움." }
+      ],
+      sol: { ans: "원문 미보유", alt: "정답 직접 풀이, 검토 필요", cm: "대화 구분 표기는 \\[A\\] 처럼 이스케이프하면 대괄호 그대로 출력. 여러 단어 배제는 [x:Do you like] 처럼 구간 전체에 ✕." }
+    }
   ]
 };

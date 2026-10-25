@@ -11,6 +11,7 @@
    [skip]         […] 생략 표시
    [blank] / [blank:40]  빈칸 밑줄 (mm)
    **굵게**
+   대괄호 문자 자체를 쓰려면 \\[ \\] 로 이스케이프
    중첩 가능: [y:being [w:cautious|조심하는] while …|B]
    ───────────────────────────────────────────────────────────── */
 import React from "react";
@@ -22,6 +23,7 @@ function splitTop(inner) {
   let depth = 0, pos = -1;
   for (let i = 0; i < inner.length; i++) {
     const ch = inner[i];
+    if (ch === "\\") { i++; continue; }
     if (ch === "[") depth++;
     else if (ch === "]") depth--;
     else if (ch === "|" && depth === 0) pos = i;
@@ -73,6 +75,9 @@ export function parse(str) {
   const flush = () => { if (buf) { out.push(buf); buf = ""; } };
 
   while (i < str.length) {
+    if (str[i] === "\\" && (str[i + 1] === "[" || str[i + 1] === "]")) {
+      buf += str[i + 1]; i += 2; continue;
+    }
     if (str[i] === "[") {
       const rest = str.slice(i);
       const m = /^\[([a-z]+)(:|\])/.exec(rest);
@@ -87,6 +92,7 @@ export function parse(str) {
         // 짝 맞는 ] 찾기
         let depth = 1, j = i + m[0].length;
         while (j < str.length && depth > 0) {
+          if (str[j] === "\\") { j += 2; continue; }
           if (str[j] === "[") depth++;
           else if (str[j] === "]") depth--;
           j++;

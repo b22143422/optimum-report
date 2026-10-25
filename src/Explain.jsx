@@ -63,6 +63,46 @@ function AbcTable({ item }) {
   );
 }
 
+/* <보기> 상자: 문자열(줄바꿈 구분) 또는 [{t, v:"O"|"X", why}] */
+function Bogi({ bogi, title }) {
+  if (!bogi) return null;
+  const lines = Array.isArray(bogi)
+    ? bogi.map((b) => (typeof b === "string" ? { t: b } : b))
+    : String(bogi).split("\n").map((l) => l.trim()).filter(Boolean).map((t) => ({ t }));
+  return (
+    <div className="bogi">
+      <p className="t">{title || "<보 기>"}</p>
+      {lines.map((b, i) => (
+        <div className="bl" key={i}>
+          {b.v != null && <span className={"bv " + (/^(O|o|○|T|t)$/.test(String(b.v)) ? "o" : "x")}>{/^(O|o|○|T|t)$/.test(String(b.v)) ? "○" : "✕"}</span>}
+          <span className="bt">{parse(b.t)}{b.why && <span className="bw">{parse(b.why)}</span>}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* 서술형 소문항: subs[{label, stem, cond[], answerLine, pts, cm}] */
+function Subs({ subs }) {
+  if (!subs || !subs.length) return null;
+  return (
+    <>
+      {subs.map((su, i) => (
+        <div className="sub" key={i}>
+          {(su.label || su.stem) && (
+            <p className="sl">{su.label && <span>{su.label} </span>}{su.stem && parse(su.stem)}{su.pts && <span className="pt"> [{su.pts}]</span>}</p>
+          )}
+          {su.cond && su.cond.length > 0 && (
+            <div className="cond"><p className="t">&lt;조 건&gt;</p><ul>{su.cond.map((c, j) => <li key={j}>{parse(c)}</li>)}</ul></div>
+          )}
+          {su.answerLine && <p className="ansrow"><span className="arr">➡</span><span className="line">{parse(su.answerLine)}</span></p>}
+          {su.cm && <p className="cm">{parse(su.cm)}</p>}
+        </div>
+      ))}
+    </>
+  );
+}
+
 export function ExplainItem({ item }) {
   const stem = item.stem && (
     <p className="stem">{parse(item.stem)}{item.pts && <span className="pt"> [{item.pts}]</span>}</p>
@@ -87,6 +127,7 @@ export function ExplainItem({ item }) {
           <Passage text={item.summary} style={{ lineHeight: 1.9 }} />
         </>
       )}
+      {item.bogi && <Bogi bogi={item.bogi} title={item.bogiTitle} />}
       {item.stemAfter && stem}
 
       {item.table && <AbcTable item={item} />}
@@ -101,6 +142,7 @@ export function ExplainItem({ item }) {
       {item.answerLine && (
         <p className="ansrow"><span className="arr">➡</span><span className="line">{parse(item.answerLine)}</span></p>
       )}
+      {item.subs && <Subs subs={item.subs} />}
 
       {item.sol && (
         <div className="sol">
